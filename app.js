@@ -1,57 +1,74 @@
-// ✅ Import Firebase Modules
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } 
-  from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+// app.js
+import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "./firebase.js";
 
-// ✅ Firebase Configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyAvwfXwPAJsZiWC9o_emZsI-eqHa7P47_E",
-  authDomain: "telemedisync.firebaseapp.com",
-  projectId: "telemedisync",
-  storageBucket: "telemedisync.firebasestorage.app",
-  messagingSenderId: "637321270227",
-  appId: "1:637321270227:web:a2c40724de239477f65526"
-};
-
-// ✅ Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-// ✅ Signup Function
-window.signup = function () {
-    let email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
+// Function to sign up users
+function signup() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
     createUserWithEmailAndPassword(auth, email, password)
         .then(() => {
-            document.getElementById("status").innerText = "Signup successful!";
+            iziToast.success({ title: "Success", message: "Account created successfully!" });
+            window.location.href = "dashboard.html"; // Redirect to dashboard
         })
         .catch(error => {
-            document.getElementById("status").innerText = error.message;
+            iziToast.error({ title: "Error", message: error.message });
         });
 }
 
-// ✅ Login Function
-window.login = function () {
-    let email = document.getElementById("email").value;
-    let password = document.getElementById("password").value;
+// Function to log in users
+function login() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
     signInWithEmailAndPassword(auth, email, password)
         .then(() => {
-            document.getElementById("status").innerText = "Login successful!";
+            iziToast.success({ title: "Success", message: "Logged in successfully!" });
+            window.location.href = "dashboard.html"; // Redirect to dashboard
         })
         .catch(error => {
-            document.getElementById("status").innerText = error.message;
+            iziToast.error({ title: "Error", message: error.message });
         });
 }
 
-// ✅ Logout Function
-window.logout = function () {
+// Function to log out users
+function logout() {
     signOut(auth)
         .then(() => {
-            document.getElementById("status").innerText = "Logged out!";
+            iziToast.info({ title: "Logged out", message: "You have been signed out." });
+            window.location.href = "index.html"; // Redirect to login page
         })
         .catch(error => {
-            document.getElementById("status").innerText = error.message;
+            iziToast.error({ title: "Error", message: error.message });
         });
 }
+
+// Protect dashboard.html (Redirect if not logged in)
+function checkAuth() {
+    onAuthStateChanged(auth, (user) => {
+        if (!user) {
+            window.location.href = "index.html";
+        }
+    });
+}
+
+// Redirect already logged-in users from index.html to dashboard.html
+function checkIfLoggedIn() {
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            window.location.href = "dashboard.html";
+        }
+    });
+}
+
+// Run protection scripts based on the page
+if (window.location.pathname.includes("dashboard.html")) {
+    checkAuth();
+} else if (window.location.pathname.includes("index.html")) {
+    checkIfLoggedIn();
+}
+
+// Expose functions globally
+window.signup = signup;
+window.login = login;
+window.logout = logout;

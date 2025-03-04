@@ -3,112 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MediSynchro</title>
-    <link rel="stylesheet" href="style.css">
+    <title>MediSynchro - Login</title>
     
-        
-    <!-- FontAwesome -->
+    <!-- External Libraries -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"> 
-    
-    <!-- boxicon -->
     <link href="https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css" rel="stylesheet">
-    
-    <!-- material design icon -->
-    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css" rel="stylesheet">
-
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet">
-
-    <!-- SweetAlert2 CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    
-    <!-- iziToast CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css">
-    
-    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    
-    
-    <!-- NProgress -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>   
-      
-    <!-- ApexCharts css -->
-      <link href="https://cdn.jsdelivr.net/npm/apexcharts@latest/dist/apexcharts.css" rel="stylesheet">
-      <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 
-    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
-    <script defer src="app.js" type="module"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body class="flex items-center justify-center min-h-screen bg-gray-100">
 
     <div class="bg-white p-6 rounded-lg shadow-lg w-96 text-center">
-        <h2 class="text-2xl font-bold text-gray-700 mb-4">MediSynchro</h2>
+        <h2 class="text-2xl font-bold text-gray-700 mb-4"><i class="fa-solid fa-heartbeat text-blue-500"></i> MediSynchro</h2>
+
+        <!-- Input Fields -->
+        <input type="email" id="email" placeholder="Email" class="w-full px-4 py-2 mb-3 border rounded-lg focus:ring-2 focus:ring-blue-400 transition-all duration-200">
+        <input type="password" id="password" placeholder="Password" class="w-full px-4 py-2 mb-3 border rounded-lg focus:ring-2 focus:ring-blue-400 transition-all duration-200">
         
-        <input type="email" id="email" placeholder="Email" 
-               class="w-full px-4 py-2 mb-3 border rounded-lg focus:ring-2 focus:ring-blue-400">
-        <input type="password" id="password" placeholder="Password" 
-               class="w-full px-4 py-2 mb-3 border rounded-lg focus:ring-2 focus:ring-blue-400">
-        
-        <button onclick="signup()" 
-                class="w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 mb-2">
-            Sign Up
+        <!-- Authentication Buttons -->
+        <button onclick="signup()" class="w-full bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-all duration-200 mb-2">
+            <i class="fa-solid fa-user-plus"></i> Sign Up
         </button>
-        <button onclick="login()" 
-                class="w-full bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 mb-2">
-            Login
+        <button onclick="login()" class="w-full bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-all duration-200 mb-2">
+            <i class="fa-solid fa-sign-in-alt"></i> Login
         </button>
-        <button onclick="logout()" 
-                class="w-full bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
-            Logout
+        <button onclick="logout()" class="w-full bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-all duration-200">
+            <i class="fa-solid fa-sign-out-alt"></i> Logout
         </button>
 
+        <!-- Status Messages -->
         <p id="status" class="text-sm text-gray-600 mt-3"></p>
     </div>
-    
-    
-     <!-- ApexCharts js 
-     <script src="https://cdn.jsdelivr.net/npm/apexcharts@latest"></script>
-      -->
-      <!-- Popper.js -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    
-
-    <!-- Bootstrap Bundle JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- SweetAlert2 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
-    <!-- iziToast JS -->
-    <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
 
     <!-- Firebase SDK -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } 
-          from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    <script type="module" src="firebase.js"></script>
+    <script defer src="app.js" type="module"></script>
 
-        const firebaseConfig = {
-  apiKey: "AIzaSyAvwfXwPAJsZiWC9o_emZsI-eqHa7P47_E",
-  authDomain: "telemedisync.firebaseapp.com",
-  projectId: "telemedisync",
-  storageBucket: "telemedisync.firebasestorage.app",
-  messagingSenderId: "637321270227",
-  appId: "1:637321270227:web:a2c40724de239477f65526"
-};
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-
-        window.firebaseAuth = { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut };
-    </script>
+    <!-- Toast Notifications -->
+    <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 </html>
