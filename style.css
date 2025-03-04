@@ -1,0 +1,9 @@
+body {
+    font-family: Arial, sans-serif;
+}
+input {
+    outline: none;
+}
+button {
+    cursor: pointer;
+}
