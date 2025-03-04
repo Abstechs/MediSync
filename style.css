@@ -7,3 +7,66 @@ input {
 button {
     cursor: pointer;
 }
+
+
+
+/* Sidebar Styling */
+.sidebar {
+    height: 100vh;
+    padding: 20px;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Tooltip */
+.tooltip-box {
+    display: none;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    top: 40px;
+    right: 0;
+}
+
+.tooltip-box.visible {
+    display: block;
+}
+
+/* Chat Styling */
+.chat-box {
+    max-width: 500px;
+}
+
+.chat-message {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    max-width: 80%;
+}
+
+.message-text {
+    word-wrap: break-word;
+}
+
+/* Responsive Fixes */
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        left: -100%;
+        width: 250px;
+        transition: left 0.3s;
+    }
+
+    .sidebar.hidden {
+        left: 0;
+    }
+}

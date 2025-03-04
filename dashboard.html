@@ -1,39 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <title>Page title</title>
+</head>
+<body>
+    
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MediSynchro Dashboard</title>
+  <title>MediSync Dashboard</title>
   <!-- Tailwind CSS -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
   <!-- iziToast CSS for notifications -->
   <link href="https://cdn.jsdelivr.net/npm/izitoast/dist/css/iziToast.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <!-- FontAwesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="dashboard.css" />
+  <style>
+    /* Sidebar slide-in styles */
+    .sidebar {
+      transition: transform 0.3s ease-in-out;
+    }
+    .sidebar-hidden {
+      transform: translateX(-100%);
+    }
+  </style>
 </head>
 <body class="bg-gray-100">
   <!-- Navigation Bar -->
   <nav class="bg-white shadow">
     <div class="max-w-7xl mx-auto px-4">
-      <div class="flex justify-between">
-        <div class="flex space-x-4">
-          <div>
-            <a href="#" class="flex items-center py-5 px-2 text-gray-700">
-              <i class="fa-solid fa-heartbeat text-blue-500 mr-2"></i>
-              <span class="font-bold">MediSynchro</span>
-            </a>
-          </div>
-          <!-- Primary Navigation -->
-          <div class="hidden md:flex items-center space-x-1">
-            <a href="#home" onclick="showSection('home')" class="py-5 px-3 text-gray-700 hover:text-gray-900">Home</a>
-            <a href="#upload" onclick="showSection('upload')" class="py-5 px-3 text-gray-700 hover:text-gray-900">Uploads</a>
-            <a href="#chat" onclick="showSection('chat')" class="py-5 px-3 text-gray-700 hover:text-gray-900">Consultation</a>
-          </div>
+      <div class="flex justify-between items-center py-4">
+        <div class="flex items-center">
+          <!-- Hamburger for Mobile -->
+          <button id="menu-toggle" class="md:hidden text-gray-700 focus:outline-none mr-4">
+            <i class="fa-solid fa-bars fa-2x"></i>
+          </button>
+          <a href="#home" class="flex items-center text-gray-700">
+            <i class="fa-solid fa-heartbeat text-blue-500 mr-2 text-2xl"></i>
+            <span class="font-bold text-xl">MediSync</span>
+          </a>
         </div>
-        <!-- Logout Button -->
-        <div class="flex items-center space-x-1">
-          <button onclick="logout()" class="py-2 px-3 bg-red-500 text-white rounded hover:bg-red-600">Logout</button>
+        <!-- Desktop Navigation -->
+        <div class="hidden md:flex space-x-4">
+          <a href="#home" onclick="showSection('home')" class="py-2 px-3 text-gray-700 hover:text-gray-900">Home</a>
+          <a href="#upload" onclick="showSection('upload')" class="py-2 px-3 text-gray-700 hover:text-gray-900">Uploads</a>
+          <a href="#chat" class="py-2 px-3 text-gray-700 hover:text-gray-900">Consultation</a>
         </div>
+        <!-- Profile / Avatar -->
+        <div class="flex items-center">
+  <div id="profile-display" class="flex items-center space-x-2" title="Loading...">
+    <i class="fa-solid fa-user-circle fa-2x text-gray-700"></i>
+  </div>
+  <button onclick="logout()" class="ml-4 py-2 px-3 bg-red-500 text-white rounded hover:bg-red-600">
+    Logout
+  </button>
+</div><!-- Profile / Avatar End -->
       </div>
+    </div>
+    <!-- Mobile Sidebar -->
+    <div id="mobile-menu" class="sidebar sidebar-hidden md:hidden bg-white shadow absolute top-16 left-0 w-64 h-full z-50">
+      <nav class="p-4">
+        <a href="#home" onclick="showSection('home');" class="block py-2 text-gray-700 hover:bg-gray-200 rounded">Home</a>
+        <a href="#upload" onclick="showSection('upload');" class="block py-2 text-gray-700 hover:bg-gray-200 rounded">Uploads</a>
+        <a href="#chat" onclick="showSection('chat');" class="block py-2 text-gray-700 hover:bg-gray-200 rounded">Consultation</a>
+      </nav>
     </div>
   </nav>
 
@@ -41,17 +76,17 @@
   <div class="max-w-7xl mx-auto p-4">
     <!-- Home Section -->
     <div id="home" class="section">
-      <h1 class="text-3xl font-bold mb-4">Welcome, <span id="userEmail"></span></h1>
-      <p class="text-gray-700">This is your dashboard where you can upload lab results and consult with specialists in real-time.</p>
+      <h1 class="text-3xl font-bold mb-4">Welcome, <span id="greeting"></span>!</h1>
+      <p class="text-gray-700">This is your dashboard where you can upload lab results and consult with specialists in real time.</p>
     </div>
 
     <!-- Upload Section -->
     <div id="upload" class="section hidden">
       <h2 class="text-2xl font-bold mb-4">Upload Lab Results</h2>
-      <input type="file" id="fileUpload" class="mb-3 p-2 border" />
+      <input type="file" id="fileUpload" class="mb-3 p-2 border rounded w-full" />
       <button onclick="uploadFile()" class="py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600">Upload File</button>
       <div id="uploadedFiles" class="mt-4">
-        <!-- List of uploaded files will be appended here -->
+        <!-- Uploaded files will be listed here -->
       </div>
     </div>
 
@@ -59,7 +94,7 @@
     <div id="chat" class="section hidden">
       <h2 class="text-2xl font-bold mb-4">Consultation Chat</h2>
       <div id="chatMessages" class="border rounded p-4 h-64 overflow-y-auto bg-white">
-        <!-- Chat messages will appear here -->
+        <!-- Chat messages appear here -->
       </div>
       <div class="mt-4 flex">
         <input type="text" id="chatInput" placeholder="Type your message..." class="flex-1 p-2 border rounded-l" />
@@ -73,7 +108,7 @@
   <!-- iziToast and SweetAlert2 for notifications -->
   <script src="https://cdn.jsdelivr.net/npm/izitoast/dist/js/iziToast.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <!-- FontAwesome (optional for icons) -->
+  <!-- FontAwesome -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
 </body>
 </html>

@@ -1,0 +1,107 @@
+/* Tooltip styling */
+.tooltip {
+  position: relative;
+  cursor: pointer;
+}
+
+.tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.1);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  white-space: nowrap;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.tooltip:hover::after {
+  opacity: 1;
+}
+
+/* Chat box styling */
+.chat-box {
+  height: 300px;
+  overflow-y: auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.chat-bubble {
+  max-width: 75%;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 14px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.chat-meta {
+  font-weight: bold;
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.chat-content {
+  background: #e0e0e0;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.chat-time {
+  font-size: 10px;
+  text-align: right;
+  opacity: 0.6;
+}
+
+.sent {
+  align-self: flex-end;
+  text-align: right;
+}
+
+.sent .chat-content {
+  background: #007bff;
+  color: #fff;
+}
+
+.received {
+  align-self: flex-start;
+}
+
+.received .chat-content {
+  background: #f0f0f0;
+}
+
+/* Chat input and button */
+.chat-input {
+  width: 80%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.chat-send-btn {
+  width: 18%;
+  padding: 8px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.chat-send-btn:hover {
+  background: #0056b3;
+}

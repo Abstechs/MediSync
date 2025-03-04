@@ -13,7 +13,8 @@ import {
   addDoc, 
   query, 
   orderBy, 
-  onSnapshot 
+  onSnapshot,
+  serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 import { 
   getStorage, 
@@ -48,6 +49,7 @@ export {
   query,
   orderBy,
   onSnapshot,
+  serverTimestamp,
   storage,
   ref,
   uploadBytes,
